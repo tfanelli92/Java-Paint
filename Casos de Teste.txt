@@ -61,4 +61,4 @@ Campo: Nome do Arquivo
 
 Ações: Escolher um arquivo .pnt existente e com conteúdo inválido. O arquivo NÃO deve ser carregado. Tratar erros.
 
-Mensagem: falha na leitura, arquivo inválido
+Mensagem: falha na leitura do arquivo, conteúdo inválido
