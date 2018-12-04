@@ -158,6 +158,7 @@ public class Janela extends JFrame
 		btnPonto.addActionListener (new DesenhoDePonto());
 		btnLinha.addActionListener (new DesenhoDeReta ());
 		btnAbrir.addActionListener (new abrirArquivo());
+		btnCores.addActionListener (new selecionarCor());
 
 		JPanel     pnlBotoes = new JPanel();
 		FlowLayout flwBotoes = new FlowLayout(); 
@@ -382,7 +383,7 @@ public class Janela extends JFrame
 					try {
 						if
 						(
-								(Integer.parseInt(split[1]) >= 0) && //x
+								(Integer.parseInt(split[1]) >= 0) && //xbtn
 								(Integer.parseInt(split[2]) >= 0) && //y
 								(Integer.parseInt(split[3]) >= 0) && //r1
 								(Integer.parseInt(split[4]) >= 0) && //r2
@@ -406,10 +407,18 @@ public class Janela extends JFrame
 		}
 
 		if(invalido > 0) {
-			statusBar1.setText("Mensagem: falha na leitura do arquivo, conteúdo inválido"); //mostrar erro
-		}
+			statusBar1.setText("Mensagem: " + invalido + " linha(s) com erro na leitura"); //mostrar erro
+		}	
 	}
 
+	protected class selecionarCor implements ActionListener
+	{
+		public void actionPerformed (ActionEvent e)    
+		{
+			Paleta paleta = new Paleta();
+		}
+	}
+	
 	protected class DesenhoDePonto implements ActionListener
 	{
 		public void actionPerformed (ActionEvent e)    
