@@ -47,8 +47,6 @@ public class Abrir
 			BufferedReader leitor = new BufferedReader (new FileReader (this.arquivo));
 
 			while (leitor.ready()) {
-				
-				System.out.println (leitor.readLine());
 				linhasArquivo.add(leitor.readLine());
 			}
 

@@ -275,7 +275,7 @@ public class Janela extends JFrame
 					String split[] = arquivo.toString().split("\\\\");
 
 					String nomeArquivo = split[split.length-1];
-					
+
 					statusBar1.setText("Mensagem: " + nomeArquivo); //mostrar nome do diretorio
 					linhasArquivo = diretorio.lerArquivo(arquivo);
 					carregarArquivo(linhasArquivo);
@@ -294,32 +294,119 @@ public class Janela extends JFrame
 
 	protected void carregarArquivo (Vector <String> linhasArquivo) {
 
-		for(int x = 0; x < linhasArquivo.size(); x++) {
+		int invalido = 0;
 
-			System.out.println (linhasArquivo.get(x));
+		for(int x = 0; x < linhasArquivo.size(); x++) {
 
 			if(linhasArquivo.get(x) != null) {
 
-				if(linhasArquivo.get(x).charAt(0) == 'p') {
-					figuras.add (new Ponto (linhasArquivo.get(x)));
-					figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+				String split[] = linhasArquivo.get(x).toString().split(":");
+
+				System.out.println(linhasArquivo.get(x));
+				
+				if(split[0].equals("p")) {
+
+					try {
+						if
+						(
+								(Integer.parseInt(split[1]) >= 0) && //x
+								(Integer.parseInt(split[2]) >= 0) && //y
+								(Integer.parseInt(split[3]) >= 0 && Integer.parseInt(split[3]) <= 255) && //RED
+								(Integer.parseInt(split[4]) >= 0 && Integer.parseInt(split[4]) <= 255) && //GREEN
+								(Integer.parseInt(split[5]) >= 0 && Integer.parseInt(split[5]) <= 255)    //BLUE
+								) {		
+							figuras.add (new Ponto (linhasArquivo.get(x)));
+							figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+						}
+						else {
+							invalido++;
+						}
+					}
+
+					catch (Exception e) {
+						invalido++;
+					}
 				}
 
-				else if(linhasArquivo.get(x).charAt(0) == 'l') {
-					figuras.add (new Linha (linhasArquivo.get(x)));
-					figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+				else if(split[0].equals("l")) {
+
+					try {
+						if
+						(
+								(Integer.parseInt(split[1]) >= 0) && //x1
+								(Integer.parseInt(split[2]) >= 0) && //y1
+								(Integer.parseInt(split[3]) >= 0) && //x2
+								(Integer.parseInt(split[4]) >= 0) && //y2
+								(Integer.parseInt(split[5]) >= 0 && Integer.parseInt(split[5]) <= 255) && //RED
+								(Integer.parseInt(split[6]) >= 0 && Integer.parseInt(split[6]) <= 255) && //GREEN
+								(Integer.parseInt(split[7]) >= 0 && Integer.parseInt(split[7]) <= 255)    //BLUE
+								) {		
+							figuras.add (new Linha (linhasArquivo.get(x)));
+							figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+						}
+						else {
+							invalido++;
+						}
+					}
+					catch (Exception e) {
+						invalido++;
+					}
 				}
 
-				else if(linhasArquivo.get(x).charAt(0) == 'c') {
-					figuras.add (new Circulo (linhasArquivo.get(x)));
-					figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+				else if(split[0].equals("c")) {
+					
+					try {
+						if
+						(
+								(Integer.parseInt(split[1]) >= 0) && //x
+								(Integer.parseInt(split[2]) >= 0) && //y
+								(Integer.parseInt(split[3]) >= 0) && //r
+								(Integer.parseInt(split[4]) >= 0 && Integer.parseInt(split[4]) <= 255) && //RED
+								(Integer.parseInt(split[5]) >= 0 && Integer.parseInt(split[5]) <= 255) && //GREEN
+								(Integer.parseInt(split[6]) >= 0 && Integer.parseInt(split[6]) <= 255)    //BLUE
+								) {		
+							figuras.add (new Circulo (linhasArquivo.get(x)));
+							figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+						}
+						else {
+							invalido++;
+						}
+					}
+					catch (Exception e) {
+						invalido++;
+					}
 				}
 
-				else if(linhasArquivo.get(x).charAt(0) == 'e') {
-					figuras.add (new Elipse (linhasArquivo.get(x)));
-					figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+				else if(split[0].equals("e")) {
+				
+					try {
+						if
+						(
+								(Integer.parseInt(split[1]) >= 0) && //x
+								(Integer.parseInt(split[2]) >= 0) && //y
+								(Integer.parseInt(split[3]) >= 0) && //r1
+								(Integer.parseInt(split[4]) >= 0) && //r2
+								(Integer.parseInt(split[5]) >= 0 && Integer.parseInt(split[5]) <= 255) && //RED
+								(Integer.parseInt(split[6]) >= 0 && Integer.parseInt(split[6]) <= 255) && //GREEN
+								(Integer.parseInt(split[7]) >= 0 && Integer.parseInt(split[7]) <= 255)    //BLUE
+								) {		
+							figuras.add (new Elipse (linhasArquivo.get(x)));
+							figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+						}	
+					}
+					catch(Exception e) {
+						invalido++;
+					}
+				}
+
+				else {
+					invalido++;
 				}
 			}
+		}
+
+		if(invalido > 0) {
+			statusBar1.setText("Mensagem: falha na leitura do arquivo, conteúdo inválido"); //mostrar erro
 		}
 	}
 
