@@ -415,7 +415,10 @@ public class Janela extends JFrame
 	{
 		public void actionPerformed (ActionEvent e)    
 		{
+			statusBar1.setText("Mensagem: aguardando cor...");
+			
 			Paleta paleta = new Paleta();
+			Color novaCor = paleta.getNovaCor();
 		}
 	}
 	

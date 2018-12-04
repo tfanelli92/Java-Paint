@@ -47,7 +47,7 @@ public class Abrir
 			BufferedReader leitor = new BufferedReader (new FileReader (this.arquivo));
 
 			while (leitor.ready()) {
-				linhasArquivo.add(leitor.readLine());
+				this.linhasArquivo.add(leitor.readLine());
 			}
 
 			leitor.close();
@@ -55,7 +55,7 @@ public class Abrir
 		catch (Exception erro)
 		{System.out.println(erro);}
 	
-		return linhasArquivo;
+		return this.linhasArquivo;
 	}
 }
 

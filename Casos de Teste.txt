@@ -1,4 +1,4 @@
-+Classe: Abrir
++Classe: Abrir (Todos os testes concluído, não existe mais casos)
 
 
 Teste # 1 - Clicar nos botão (ok)
@@ -55,10 +55,93 @@ Ações: Escolher um arquivo .pnt existente e com conteúdo válido. O arquivo deve 
 Mensagem: Nome_Do_Arquivo.pnt
 
 
-Teste # 2.5 - Preencher campo (FAZER)
+Teste # 2.5 - Preencher campo (ok)
 
 Campo: Nome do Arquivo
 
 Ações: Escolher um arquivo .pnt existente e com conteúdo inválido. O arquivo NÃO deve ser carregado. Tratar erros.
 
-Mensagem: falha na leitura do arquivo, conteúdo inválido
+Mensagem: x linha(s) com erro na leitura
+
+
+Teste # 2.6 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Escolher um arquivo .pnt existente e com conteúdo tanto valido quanto inválido. É carregado apenas o que é valido e é mostrado quantos erros existem. Tratar erros.
+
+Mensagem: x linha(s) com erro na leitura
+
+
++Classe: Paleta (Testes em andamento)
+
+Teste # 1 - Clicar nos botão (ok)
+
+Botão: Cores
+
+Ações: Ao clicar no botão deve abrir uma janela
+
+Mensagem: aguardando cor...
+
+
+Teste # 2.1 - Clicar nos botões (ok)
+
+Botão: Fechar e Cancelar 
+
+Ações: Ao clicar nos botões a janela deve fechar sem erros
+
+Mensagem: Nenhuma
+
+
+Teste # 2.1 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Preencher qualquer nome e apertar ABRIR. Tratar erros.
+
+Mensagem: arquivo não encontrado ou vazio
+
+
+Teste # 2.2 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Deixar campo vazio e apertar ABRIR. Nada deve acontecer.
+
+Mensagem: Nenhuma
+
+
+Teste # 2.3 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Escolher um arquivo .pnt existente, mas que está vazio. Tratar erros.
+
+Mensagem: arquivo não encontrado ou vazio
+
+
+Teste # 2.4 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Escolher um arquivo .pnt existente e com conteúdo válido. O arquivo deve ser carregado.
+
+Mensagem: Nome_Do_Arquivo.pnt
+
+
+Teste # 2.5 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Escolher um arquivo .pnt existente e com conteúdo inválido. O arquivo NÃO deve ser carregado. Tratar erros.
+
+Mensagem: x linha(s) com erro na leitura
+
+
+Teste # 2.6 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Escolher um arquivo .pnt existente e com conteúdo tanto valido quanto inválido. É carregado apenas o que é valido e é mostrado quantos erros existem. Tratar erros.
+
+Mensagem: x linha(s) com erro na leitura
