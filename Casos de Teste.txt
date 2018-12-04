@@ -1,0 +1,64 @@
++Classe: Abrir
+
+
+Teste # 1 - Clicar nos botão (ok)
+
+Botão: Abrir
+
+Ações: Ao clicar no botão deve abrir uma janela
+
+Mensagem: aguardando arquivo...
+
+
+Teste # 2.1 - Clicar nos botões (ok)
+
+Botão: Fechar e Cancelar 
+
+Ações: Ao clicar nos botões a janela deve fechar sem erros
+
+Mensagem: Nenhuma
+
+
+Teste # 2.1 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Preencher qualquer nome e apertar ABRIR. Tratar erros.
+
+Mensagem: arquivo não encontrado ou vazio
+
+
+Teste # 2.2 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Deixar campo vazio e apertar ABRIR. Nada deve acontecer.
+
+Mensagem: Nenhuma
+
+
+Teste # 2.3 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Escolher um arquivo .pnt existente, mas que está vazio. Tratar erros.
+
+Mensagem: arquivo não encontrado ou vazio
+
+
+Teste # 2.4 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Escolher um arquivo .pnt existente e com conteúdo válido. O arquivo deve ser carregado.
+
+Mensagem: Nome_Do_Arquivo.pnt
+
+
+Teste # 2.5 - Preencher campo (FAZER)
+
+Campo: Nome do Arquivo
+
+Ações: Escolher um arquivo .pnt existente e com conteúdo inválido. O arquivo NÃO deve ser carregado. Tratar erros.
+
+Mensagem: falha na leitura, arquivo inválido
