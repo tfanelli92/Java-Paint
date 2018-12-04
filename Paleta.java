@@ -3,25 +3,27 @@ import javax.swing.*;
 
 public class Paleta extends JFrame {
 
+	private JFrame frame = new JFrame("Paleta de Cores");
+	private Color novaCor = null;
+	
 	public Paleta () {
 
-		final JFrame frame = new JFrame("Paleta de Cores");
+		 this.novaCor = JColorChooser.showDialog(this.frame, "Escolha uma cor", this.frame.getBackground());
 
-		Color novaCor = JColorChooser.showDialog(frame, "Escolha uma cor", frame.getBackground());
-
-		if(novaCor != null){
-			frame.getContentPane().setBackground(novaCor);
-			System.out.println("COR = " + novaCor);
+		if(this.novaCor != null){
+			this.frame.getContentPane().setBackground(this.novaCor);
 		}
 		
-		else {
-			System.out.println("COR = " + novaCor);
-		}
-
-		Container pane = frame.getContentPane();
+			System.out.println("COR = " + this.novaCor);
+			
+		Container pane = this.frame.getContentPane();
 		pane.setLayout(new FlowLayout());
 
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frame.setSize(300, 200);
+		this.frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.frame.setSize(300, 200);
+	}
+	
+	public Color getNovaCor() {
+		return this.novaCor;
 	}
 }
