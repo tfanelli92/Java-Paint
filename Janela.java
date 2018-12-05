@@ -24,17 +24,19 @@ public class Janela extends JFrame
 	protected JLabel statusBar1 = new JLabel ("Mensagem:"),
 			statusBar2 = new JLabel ("Coordenada:");
 
-	protected boolean esperaPonto, esperaInicioReta, esperaFimReta;
+	protected boolean esperaPonto, esperaInicioReta, esperaFimReta, esperaInicioRaioCirculo, esperaFimRaioCirculo;
 
 	protected Color corAtual = Color.BLACK;
 	protected Ponto p1;
+	protected Circulo c1;
+	
 
 	protected Vector<Figura> figuras = new Vector<Figura>();
 	protected Vector<String> linhasArquivo = new Vector<String>();
 
 	public Janela ()
 	{
-		super("Editor Gráfico");
+		super("Editor Grï¿½fico");
 
 		try
 		{
@@ -44,7 +46,7 @@ public class Janela extends JFrame
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog (null,
-					"Arquivo ponto.jpg não foi encontrado",
+					"Arquivo ponto.jpg nï¿½o foi encontrado",
 					"Arquivo de imagem ausente",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -57,7 +59,7 @@ public class Janela extends JFrame
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog (null,
-					"Arquivo linha.jpg não foi encontrado",
+					"Arquivo linha.jpg nï¿½o foi encontrado",
 					"Arquivo de imagem ausente",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -70,7 +72,7 @@ public class Janela extends JFrame
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog (null,
-					"Arquivo circulo.jpg não foi encontrado",
+					"Arquivo circulo.jpg nï¿½o foi encontrado",
 					"Arquivo de imagem ausente",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -83,7 +85,7 @@ public class Janela extends JFrame
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog (null,
-					"Arquivo elipse.jpg não foi encontrado",
+					"Arquivo elipse.jpg nï¿½o foi encontrado",
 					"Arquivo de imagem ausente",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -96,7 +98,7 @@ public class Janela extends JFrame
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog (null,
-					"Arquivo cores.jpg não foi encontrado",
+					"Arquivo cores.jpg nï¿½o foi encontrado",
 					"Arquivo de imagem ausente",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -109,7 +111,7 @@ public class Janela extends JFrame
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog (null,
-					"Arquivo abrir.jpg não foi encontrado",
+					"Arquivo abrir.jpg nï¿½o foi encontrado",
 					"Arquivo de imagem ausente",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -122,7 +124,7 @@ public class Janela extends JFrame
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog (null,
-					"Arquivo salvar.jpg não foi encontrado",
+					"Arquivo salvar.jpg nï¿½o foi encontrado",
 					"Arquivo de imagem ausente",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -135,7 +137,7 @@ public class Janela extends JFrame
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog (null,
-					"Arquivo apagar.jpg não foi encontrado",
+					"Arquivo apagar.jpg nï¿½o foi encontrado",
 					"Arquivo de imagem ausente",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -148,7 +150,7 @@ public class Janela extends JFrame
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog (null,
-					"Arquivo sair.jpg não foi encontrado",
+					"Arquivo sair.jpg nï¿½o foi encontrado",
 					"Arquivo de imagem ausente",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -157,6 +159,7 @@ public class Janela extends JFrame
 
 		btnPonto.addActionListener (new DesenhoDePonto());
 		btnLinha.addActionListener (new DesenhoDeReta ());
+		btnCirculo.addActionListener(new DesenhoDeCirculo());
 		btnAbrir.addActionListener (new abrirArquivo());
 		btnCores.addActionListener (new selecionarCor());
 
@@ -236,6 +239,29 @@ public class Janela extends JFrame
 						figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
 						statusBar1.setText("Mensagem:");    
 					}
+					else
+						if (esperaInicioRaioCirculo)
+						{
+							p1 = new Ponto (e.getX(), e.getY(), corAtual);
+							System.out.println("passed here 2");
+							System.out.println(e.getX() + "gggg" + e.getY());
+							esperaInicioRaioCirculo = false;
+							esperaFimRaioCirculo = true;
+							
+							
+							
+						}
+						else
+							if (esperaFimRaioCirculo)
+							{
+								System.out.println("passed here 3");
+								esperaFimRaioCirculo = false;
+								int aux = ((p1.getX() - e.getX())*(p1.getX() - e.getX())) + ((p1.getY() - e.getY())* (p1.getY() - e.getY()));
+								int hip = (int) Math.sqrt(aux);
+								System.out.println(hip);
+								figuras.add (new Circulo(p1.getX() - e.getX(), p1.getY() - e.getY(), hip, corAtual));
+								figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+							}
 		}
 
 		public void mouseReleased (MouseEvent e)
@@ -283,7 +309,7 @@ public class Janela extends JFrame
 				}
 
 				else {
-					statusBar1.setText("Mensagem: arquivo não encontrado ou vazio");
+					statusBar1.setText("Mensagem: arquivo nï¿½o encontrado ou vazio");
 				}
 			}
 
@@ -429,6 +455,7 @@ public class Janela extends JFrame
 			esperaPonto      = true;
 			esperaInicioReta = false;
 			esperaFimReta    = false;
+			esperaInicioRaioCirculo = false;
 
 			statusBar1.setText("Mensagem: clique o local do ponto desejado");
 		}
@@ -441,11 +468,37 @@ public class Janela extends JFrame
 			esperaPonto      = false;
 			esperaInicioReta = true;
 			esperaFimReta    = false;
+			esperaInicioRaioCirculo = false;
 
 			statusBar1.setText("Mensagem: clique o ponto inicial da reta");
 		}
 	}
+	
+	protected class DesenhoDeCirculo implements ActionListener
+	{
+		public void actionPerformed (ActionEvent e)    
+		{
+			esperaPonto      		= false;
+			esperaInicioReta 	    = false;
+			esperaFimReta           = false;
+			esperaInicioRaioCirculo = true;
+			System.out.println("passed here 1");
 
+			statusBar1.setText("Mensagem: clique o ponto inicial do raio do circulo");
+		}
+	}
+	
+	protected class DesenhoDeElipse implements ActionListener
+	{
+		public void actionPerformed (ActionEvent e)    
+		{
+			//esperaPonto      = false;
+			//esperaInicioReta = true;
+			//esperaFimReta    = false;
+
+			//statusBar1.setText("Mensagem: clique o ponto inicial da reta");
+		}
+	}
 	protected class FechamentoDeJanela extends WindowAdapter
 	{
 		public void windowClosing (WindowEvent e)
