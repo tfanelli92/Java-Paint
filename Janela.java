@@ -248,7 +248,7 @@ public class Janela extends JFrame
 							p1 = new Ponto (e.getX(), e.getY(), corAtual);
 							esperaInicioRaioCirculo = false;
 							esperaFimRaioCirculo = true;
-							statusBar1.setText("Mensagem: clique o ponto final do raio do circulo");
+							statusBar1.setText("Mensagem: clique o ponto (x) do fim do circulo");
 						}
 						else
 							if (esperaFimRaioCirculo)
@@ -257,27 +257,11 @@ public class Janela extends JFrame
 								
 								p2 = new Ponto (e.getX(), e.getY(), corAtual);
 								
-							    
-								System.out.println("P1 = " + p1);
-								System.out.println("P2 = " + p2);
-			 
-								int raio = (p1.getX() - e.getX());
-								
-								System.out.println("RAIO = " + Math.abs(raio));
-								
-								int diametro = (2*Math.abs(raio));
-								
-								System.out.println("DIAMETRO = " + diametro);
-								
-
-								//int aux = ((Math.abs(p1.getX() - e.getX())) * (Math.abs(p1.getX() - e.getX()))) + ((Math.abs(p1.getY() - e.getY()) * (Math.abs(p1.getY() - e.getY()))));
-								//int hip = (int) Math.sqrt(aux);
-								//System.out.println(hip);
-								//figuras.add (new Circulo(Math.abs(p1.getX() - e.getX()), Math.abs(p1.getY() - e.getY()), hip, corAtual));
+								int raio = (p1.getX() - p2.getX());
 								
 								figuras.add (new Circulo(p1.getX(), p1.getY(), Math.abs(raio), corAtual));
 								figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
-								statusBar1.setText("Mensagem:");
+								statusBar1.setText("Mensagem: raio = " + Math.abs(raio) + " e diametro = " + Math.abs(2*raio));
 							}
 							else
 								if(esperaInicioElipse)
@@ -345,7 +329,7 @@ public class Janela extends JFrame
 				}
 
 				else {
-					statusBar1.setText("Mensagem: arquivo n�o encontrado ou vazio");
+					statusBar1.setText("Mensagem: arquivo nao encontrado ou vazio");
 				}
 			}
 
@@ -527,7 +511,7 @@ public class Janela extends JFrame
 			esperaInicioElipse      = false;
 			esperaFimElipse         = false;
 
-			statusBar1.setText("Mensagem: clique o ponto inicial (x) do raio do circulo");
+			statusBar1.setText("Mensagem: clique o ponto (x) do centro do circulo");
 		}
 	}
 	
