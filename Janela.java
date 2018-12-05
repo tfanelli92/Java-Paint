@@ -24,12 +24,11 @@ public class Janela extends JFrame
 	protected JLabel statusBar1 = new JLabel ("Mensagem:"),
 			statusBar2 = new JLabel ("Coordenada:");
 
-	protected boolean esperaPonto, esperaInicioReta, esperaFimReta, esperaInicioRaioCirculo, esperaFimRaioCirculo;
+	protected boolean esperaPonto, esperaInicioReta, esperaFimReta, esperaInicioRaioCirculo, esperaFimRaioCirculo, esperaInicioElipse, esperaFimElipse;
 
 	protected Color corAtual = Color.BLACK;
 	protected Ponto p1;
-	protected Circulo c1;
-	
+	protected Ponto p2;
 
 	protected Vector<Figura> figuras = new Vector<Figura>();
 	protected Vector<String> linhasArquivo = new Vector<String>();
@@ -160,6 +159,7 @@ public class Janela extends JFrame
 		btnPonto.addActionListener (new DesenhoDePonto());
 		btnLinha.addActionListener (new DesenhoDeReta ());
 		btnCirculo.addActionListener(new DesenhoDeCirculo());
+		btnElipse.addActionListener(new DesenhoDeElipse());
 		btnAbrir.addActionListener (new abrirArquivo());
 		btnCores.addActionListener (new selecionarCor());
 
@@ -243,25 +243,39 @@ public class Janela extends JFrame
 						if (esperaInicioRaioCirculo)
 						{
 							p1 = new Ponto (e.getX(), e.getY(), corAtual);
-							System.out.println("passed here 2");
-							System.out.println(e.getX() + "gggg" + e.getY());
 							esperaInicioRaioCirculo = false;
 							esperaFimRaioCirculo = true;
-							
-							
-							
 						}
 						else
 							if (esperaFimRaioCirculo)
 							{
-								System.out.println("passed here 3");
 								esperaFimRaioCirculo = false;
-								int aux = ((p1.getX() - e.getX())*(p1.getX() - e.getX())) + ((p1.getY() - e.getY())* (p1.getY() - e.getY()));
+								int aux = ((Math.abs(p1.getX() - e.getX())) * (Math.abs(p1.getX() - e.getX()))) + ((Math.abs(p1.getY() - e.getY()) * (Math.abs(p1.getY() - e.getY()))));
 								int hip = (int) Math.sqrt(aux);
 								System.out.println(hip);
-								figuras.add (new Circulo(p1.getX() - e.getX(), p1.getY() - e.getY(), hip, corAtual));
+								figuras.add (new Circulo(Math.abs(p1.getX() - e.getX()), Math.abs(p1.getY() - e.getY()), hip, corAtual));
 								figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+								statusBar1.setText("Mensagem:");
 							}
+							else
+								if(esperaInicioElipse)
+								{
+									p1 = new Ponto (e.getX(), e.getY(), corAtual);
+									esperaInicioElipse      = false;
+									esperaFimElipse         = true;
+									
+								}
+								else
+									if(esperaFimElipse)
+									{
+										esperaFimElipse         = false;
+										int r1     = Math.abs(e.getX() - p1.getX())/2;
+										int r2     = Math.abs(e.getY() - p1.getY())/2;
+										
+										figuras.add (new Elipse((e.getX() + p1.getX())/2, (e.getY() + p1.getY())/2, r1, r2, corAtual));
+										figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+										statusBar1.setText("Mensagem:");
+									}
 		}
 
 		public void mouseReleased (MouseEvent e)
@@ -482,7 +496,8 @@ public class Janela extends JFrame
 			esperaInicioReta 	    = false;
 			esperaFimReta           = false;
 			esperaInicioRaioCirculo = true;
-			System.out.println("passed here 1");
+			esperaInicioElipse      = false;
+			esperaFimElipse         = false;
 
 			statusBar1.setText("Mensagem: clique o ponto inicial do raio do circulo");
 		}
@@ -492,11 +507,14 @@ public class Janela extends JFrame
 	{
 		public void actionPerformed (ActionEvent e)    
 		{
-			//esperaPonto      = false;
-			//esperaInicioReta = true;
-			//esperaFimReta    = false;
+			esperaPonto      		= false;
+			esperaInicioReta 	    = false;
+			esperaFimReta           = false;
+			esperaInicioRaioCirculo = true;
+			esperaInicioElipse      = true;
+			esperaFimElipse         = false;
 
-			//statusBar1.setText("Mensagem: clique o ponto inicial da reta");
+			statusBar1.setText("Mensagem: clique o ponto inicial da elipse");
 		}
 	}
 	protected class FechamentoDeJanela extends WindowAdapter
