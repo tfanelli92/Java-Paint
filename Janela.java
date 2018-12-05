@@ -35,7 +35,7 @@ public class Janela extends JFrame
 
 	public Janela ()
 	{
-		super("Editor Gr�fico");
+		super("Editor Grafico");
 
 		try
 		{
@@ -156,12 +156,13 @@ public class Janela extends JFrame
 
 		//adicionar clique
 
-		btnPonto.addActionListener (new DesenhoDePonto());
-		btnLinha.addActionListener (new DesenhoDeReta ());
-		btnCirculo.addActionListener(new DesenhoDeCirculo());
-		btnElipse.addActionListener(new DesenhoDeElipse());
-		btnAbrir.addActionListener (new abrirArquivo());
-		btnCores.addActionListener (new selecionarCor());
+		btnPonto.addActionListener   (new DesenhoDePonto());
+		btnLinha.addActionListener   (new DesenhoDeReta ());
+		btnCirculo.addActionListener (new DesenhoDeCirculo());
+		btnElipse.addActionListener  (new DesenhoDeElipse());
+		btnAbrir.addActionListener   (new abrirArquivo());
+		btnCores.addActionListener   (new selecionarCor());
+		btnSair.addActionListener    (new Sair());
 
 		JPanel     pnlBotoes = new JPanel();
 		FlowLayout flwBotoes = new FlowLayout(); 
@@ -238,6 +239,8 @@ public class Janela extends JFrame
 						figuras.add (new Linha(p1.getX(), p1.getY(), e.getX(), e.getY(), corAtual));
 						figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
 						statusBar1.setText("Mensagem:");    
+						
+						System.out.println("LINHA = "  + new Linha(p1.getX(), p1.getY(), e.getX(), e.getY()).toString());
 					}
 					else
 						if (esperaInicioRaioCirculo)
@@ -245,15 +248,34 @@ public class Janela extends JFrame
 							p1 = new Ponto (e.getX(), e.getY(), corAtual);
 							esperaInicioRaioCirculo = false;
 							esperaFimRaioCirculo = true;
+							statusBar1.setText("Mensagem: clique o ponto final do raio do circulo");
 						}
 						else
 							if (esperaFimRaioCirculo)
 							{
 								esperaFimRaioCirculo = false;
-								int aux = ((Math.abs(p1.getX() - e.getX())) * (Math.abs(p1.getX() - e.getX()))) + ((Math.abs(p1.getY() - e.getY()) * (Math.abs(p1.getY() - e.getY()))));
-								int hip = (int) Math.sqrt(aux);
-								System.out.println(hip);
-								figuras.add (new Circulo(Math.abs(p1.getX() - e.getX()), Math.abs(p1.getY() - e.getY()), hip, corAtual));
+								
+								p2 = new Ponto (e.getX(), e.getY(), corAtual);
+								
+							    
+								System.out.println("P1 = " + p1);
+								System.out.println("P2 = " + p2);
+			 
+								int raio = (p1.getX() - e.getX());
+								
+								System.out.println("RAIO = " + Math.abs(raio));
+								
+								int diametro = (2*Math.abs(raio));
+								
+								System.out.println("DIAMETRO = " + diametro);
+								
+
+								//int aux = ((Math.abs(p1.getX() - e.getX())) * (Math.abs(p1.getX() - e.getX()))) + ((Math.abs(p1.getY() - e.getY()) * (Math.abs(p1.getY() - e.getY()))));
+								//int hip = (int) Math.sqrt(aux);
+								//System.out.println(hip);
+								//figuras.add (new Circulo(Math.abs(p1.getX() - e.getX()), Math.abs(p1.getY() - e.getY()), hip, corAtual));
+								
+								figuras.add (new Circulo(p1.getX(), p1.getY(), Math.abs(raio), corAtual));
 								figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
 								statusBar1.setText("Mensagem:");
 							}
@@ -459,6 +481,12 @@ public class Janela extends JFrame
 			
 			Paleta paleta = new Paleta();
 			Color novaCor = paleta.getNovaCor();
+
+			if(novaCor != null) {
+				corAtual = novaCor;
+			}
+			
+			statusBar1.setText("Mensagem: ");
 		}
 	}
 	
@@ -499,7 +527,7 @@ public class Janela extends JFrame
 			esperaInicioElipse      = false;
 			esperaFimElipse         = false;
 
-			statusBar1.setText("Mensagem: clique o ponto inicial do raio do circulo");
+			statusBar1.setText("Mensagem: clique o ponto inicial (x) do raio do circulo");
 		}
 	}
 	
@@ -517,6 +545,15 @@ public class Janela extends JFrame
 			statusBar1.setText("Mensagem: clique o ponto inicial da elipse");
 		}
 	}
+	
+	protected class Sair implements ActionListener
+	{
+		public void actionPerformed (ActionEvent e)    
+		{
+			System.exit(0);
+		}
+	}
+	
 	protected class FechamentoDeJanela extends WindowAdapter
 	{
 		public void windowClosing (WindowEvent e)
