@@ -109,3 +109,14 @@ Botão: OK
 Ações: Ao selecionar uma cor e clicar OK deve retornar a cor selecionada
 
 Mensagem: Nenhuma
+
+
++Classe: Janela (Testes em Andamento)
+
+Teste # 1 - Clicar nos botão (ok)
+
+Botão: Sair
+
+Ações: Encerrar o programa sem erro
+
+Mensagem: Nenhuma

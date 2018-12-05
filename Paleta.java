@@ -17,9 +17,7 @@ public class Paleta extends JFrame {
 		else {
 			this.novaCor = null;
 		}
-		
-		System.out.println("COR = " + this.novaCor);
-			
+
 		Container pane = this.frame.getContentPane();
 		pane.setLayout(new FlowLayout());
 
