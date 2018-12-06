@@ -1,7 +1,7 @@
+//
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.ImageObserver;
-
 import javax.swing.*;
 import javax.imageio.*;
 import java.io.*;
