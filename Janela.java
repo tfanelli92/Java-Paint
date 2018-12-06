@@ -1,11 +1,8 @@
-//
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.ImageObserver;
 import javax.swing.*;
 import javax.imageio.*;
 import java.io.*;
-import java.text.AttributedCharacterIterator;
 import java.util.*;
 
 public class Janela extends JFrame 
@@ -27,7 +24,7 @@ public class Janela extends JFrame
 	protected JLabel statusBar1 = new JLabel ("Mensagem:"),
 			statusBar2 = new JLabel ("Coordenada:");
 
-	protected boolean esperaPonto, esperaInicioReta, esperaFimReta, esperaInicioRaioCirculo, esperaFimRaioCirculo, esperaInicioElipse, esperaFimElipse;
+	protected boolean esperaPonto, esperaInicioReta, esperaFimReta, esperaInicioRaioCirculo, esperaFimRaioCirculo, esperaInicioElipse, esperaFimElipse, esperaIniciarApagar, esperaFimApagar;
 
 	protected Color corAtual = Color.BLACK;
 	protected Ponto p1;
@@ -158,18 +155,15 @@ public class Janela extends JFrame
 		}
 
 		//adicionar clique
-
+		btnAbrir.addActionListener   (new AbrirArquivo());
+		btnSalvar.addActionListener  (new SalvarArquivo());
 		btnPonto.addActionListener   (new DesenhoDePonto());
 		btnLinha.addActionListener   (new DesenhoDeReta ());
 		btnCirculo.addActionListener (new DesenhoDeCirculo());
 		btnElipse.addActionListener  (new DesenhoDeElipse());
-		btnAbrir.addActionListener   (new AbrirArquivo());
-		btnCores.addActionListener   (new SelecionarCor());
-		btnAbrir.addActionListener   (new AbrirArquivo());
 		btnCores.addActionListener   (new SelecionarCor());
 		btnApagar.addActionListener  (new Apagar());
 		btnSair.addActionListener    (new Sair());
-		btnSalvar.addActionListener  (new SalvarArquivo());
 
 		JPanel     pnlBotoes = new JPanel();
 		FlowLayout flwBotoes = new FlowLayout(); 
@@ -200,7 +194,7 @@ public class Janela extends JFrame
 
 		this.addWindowListener (new FechamentoDeJanela());
 
-		this.setSize (700,500);
+		this.setSize (900,500);
 		this.setVisible (true);
 	}
 
@@ -274,7 +268,7 @@ public class Janela extends JFrame
 									p1 = new Ponto (e.getX(), e.getY(), corAtual);
 									esperaInicioElipse      = false;
 									esperaFimElipse         = true;
-									
+									statusBar1.setText("Mensagem: clique o ponto (x) do fim da elipse");
 								}
 								else
 									if(esperaFimElipse)
@@ -283,9 +277,11 @@ public class Janela extends JFrame
 										int r1     = Math.abs(p1.getX() - e.getX())/2;
 										int r2     = Math.abs(p1.getY() - e.getY())/2;
 										
-										figuras.add (new Elipse((e.getX() + p1.getX())/2, (e.getY() + p1.getY())/2, r1, r2, corAtual));
+										Ponto centro = new Ponto ((e.getX() + p1.getX())/2, (e.getY() + p1.getY())/2, corAtual);
+										
+										figuras.add (new Elipse(centro.getX(), centro.getY(), r1, r2, corAtual));
 										figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
-										statusBar1.setText("Mensagem:");
+										statusBar1.setText("Mensagem: raio maior = " + Math.abs(r1) + " e raio menor = " + Math.abs(r2));
 									}
 		}
 
@@ -302,7 +298,9 @@ public class Janela extends JFrame
 		{}
 
 		public void mouseDragged(MouseEvent e)
-		{}
+		{			System.out.println("OI");
+			statusBar2.setText("Coordenada: "+e.getX()+","+e.getY());
+		}
 
 		public void mouseMoved(MouseEvent e)
 		{
@@ -314,7 +312,7 @@ public class Janela extends JFrame
 	{
 		public void actionPerformed (ActionEvent e)    
 		{
-			statusBar1.setText("Mensagem: aguardando arquivo...");
+			statusBar1.setText("Mensagem: Abrindo arquivo...");
 
 			Abrir diretorio = new Abrir();
 
@@ -430,7 +428,7 @@ public class Janela extends JFrame
 					try {
 						if
 						(
-								(Integer.parseInt(split[1]) >= 0) && //xbtn
+								(Integer.parseInt(split[1]) >= 0) && //x
 								(Integer.parseInt(split[2]) >= 0) && //y
 								(Integer.parseInt(split[3]) >= 0) && //r1
 								(Integer.parseInt(split[4]) >= 0) && //r2
@@ -477,8 +475,7 @@ public class Janela extends JFrame
 		{
 			statusBar1.setText("Mensagem: aguardando cor...");
 			
-			Paleta paleta = new Paleta();
-			Color novaCor = paleta.getNovaCor();
+			Color novaCor = new Paleta().getNovaCor();
 
 			if(novaCor != null) {
 				corAtual = novaCor;
@@ -540,7 +537,7 @@ public class Janela extends JFrame
 			esperaInicioElipse      = true;
 			esperaFimElipse         = false;
 
-			statusBar1.setText("Mensagem: clique o ponto inicial da elipse");
+			statusBar1.setText("Mensagem: clique o ponto (x) do centro da elipse");
 		}
 	}
 	
@@ -556,6 +553,11 @@ public class Janela extends JFrame
 	{
 		public void actionPerformed (ActionEvent e)    
 		{
+			esperaIniciarApagar		= true;
+			esperaFimApagar 	    = false;
+			
+			statusBar1.setText("Mensagem: clique e arraste o mouse na area desejada");
+			
 			//figuras.removeAllElements();
 			//figuras.clear();
 			//figuras.remove(figuras.size()-1);
