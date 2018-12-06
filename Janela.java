@@ -1,8 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.ImageObserver;
+
 import javax.swing.*;
 import javax.imageio.*;
 import java.io.*;
+import java.text.AttributedCharacterIterator;
 import java.util.*;
 
 public class Janela extends JFrame 
@@ -162,6 +165,7 @@ public class Janela extends JFrame
 		btnElipse.addActionListener  (new DesenhoDeElipse());
 		btnAbrir.addActionListener   (new abrirArquivo());
 		btnCores.addActionListener   (new selecionarCor());
+		btnApagar.addActionListener  (new Apagar());
 		btnSair.addActionListener    (new Sair());
 
 		JPanel     pnlBotoes = new JPanel();
@@ -275,8 +279,8 @@ public class Janela extends JFrame
 									if(esperaFimElipse)
 									{
 										esperaFimElipse         = false;
-										int r1     = Math.abs(e.getX() - p1.getX())/2;
-										int r2     = Math.abs(e.getY() - p1.getY())/2;
+										int r1     = Math.abs(p1.getX() - e.getX())/2;
+										int r2     = Math.abs(p1.getY() - e.getY())/2;
 										
 										figuras.add (new Elipse((e.getX() + p1.getX())/2, (e.getY() + p1.getY())/2, r1, r2, corAtual));
 										figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
@@ -522,7 +526,7 @@ public class Janela extends JFrame
 			esperaPonto      		= false;
 			esperaInicioReta 	    = false;
 			esperaFimReta           = false;
-			esperaInicioRaioCirculo = true;
+			esperaInicioRaioCirculo = false;
 			esperaInicioElipse      = true;
 			esperaFimElipse         = false;
 
@@ -535,6 +539,19 @@ public class Janela extends JFrame
 		public void actionPerformed (ActionEvent e)    
 		{
 			System.exit(0);
+		}
+	}
+	
+	protected class Apagar implements ActionListener
+	{
+		public void actionPerformed (ActionEvent e)    
+		{
+			//figuras.removeAllElements();
+			//figuras.clear();
+			//figuras.remove(figuras.size()-1);
+			//figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
+			//pnlDesenho.removeAll();
+			
 		}
 	}
 	
