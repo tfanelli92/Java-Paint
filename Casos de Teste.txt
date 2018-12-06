@@ -73,7 +73,7 @@ Ações: Escolher um arquivo .pnt existente e com conteúdo tanto valido quanto inv
 Mensagem: x linha(s) com erro na leitura
 
 
-+Classe: Paleta (Ok)
++Classe: Paleta (Todos os testes concluído, não existe mais casos)
 
 Teste # 1 - Clicar nos botão (ok)
 
@@ -111,7 +111,7 @@ Ações: Ao selecionar uma cor e clicar OK deve retornar a cor selecionada
 Mensagem: Nenhuma
 
 
-+Classe: Janela (Testes em Andamento)
++Classe: Janela (Todos os testes concluído, não existe mais casos)
 
 Teste # 1 - Clicar nos botão (ok)
 
@@ -120,3 +120,80 @@ Botão: Sair
 Ações: Encerrar o programa sem erro
 
 Mensagem: Nenhuma
+
+
++Classe: Salvar (Em andamento)
+
+
+Teste # 1 - Clicar nos botão (ok)
+
+Botão: Salvar
+
+Ações: Ao clicar no botão deve abrir uma janela
+
+Mensagem: salvando arquivo...
+
+
+Teste # 2.1 - Clicar nos botões (ok)
+
+Botão: Fechar e Cancelar 
+
+Ações: Ao clicar nos botões a janela deve fechar sem erros
+
+Mensagem: Nenhuma
+
+
+Teste # 2.1 - Preencher campo (ok, alguns caracteres nao tem como tratar)
+
+Campo: Nome do Arquivo
+
+Ações: Tratar caracteres invalidos \ | / * ? < > : " 
+
+Mensagem: Caractere invalido
+
+
+Teste # 2.2 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Deixar campo vazio e apertar SALVAR. Nada deve acontecer.
+
+Mensagem: Nenhuma
+
+
+Teste # 2.3 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Digitar um nome de arquivo valido e nao adicionar a extensao ".pnt". A extensao deve ser adicionada automaticamente e o arquivo salvo
+
+Mensagem: mostrar o nome do arquivo + .pnt no final
+
+
+Teste # 2.4 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Digitar um nome de arquivo valido COM extensao ".pnt" e salvar. O arquivo deve ser salvo.
+
+Mensagem: mostrar o nome do arquivo + .pnt no final
+
+
+Teste # 2.5 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Digitar um nome de arquivo valido COM extensao ".pnt", mas o arquivo já existe. Confirmar se o arquivo vai ser substituido ou não.
+
+Mensagem:  Confirmar se o arquivo vai ser substituido ou não.
+
+
+Teste # 2.6 - Preencher campo (ok)
+
+Campo: Nome do Arquivo
+
+Ações: Digitar um nome de arquivo valido SEM extensao ".pnt", mas o arquivo já existe. Confirmar se o arquivo vai ser substituido ou não.
+
+Mensagem:  Confirmar se o arquivo vai ser substituido ou não. 
+
+
