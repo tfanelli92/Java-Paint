@@ -160,9 +160,10 @@ public class Janela extends JFrame
 		btnLinha.addActionListener   (new DesenhoDeReta ());
 		btnCirculo.addActionListener (new DesenhoDeCirculo());
 		btnElipse.addActionListener  (new DesenhoDeElipse());
-		btnAbrir.addActionListener   (new abrirArquivo());
-		btnCores.addActionListener   (new selecionarCor());
+		btnAbrir.addActionListener   (new AbrirArquivo());
+		btnCores.addActionListener   (new SelecionarCor());
 		btnSair.addActionListener    (new Sair());
+		btnSalvar.addActionListener  (new SalvarArquivo());
 
 		JPanel     pnlBotoes = new JPanel();
 		FlowLayout flwBotoes = new FlowLayout(); 
@@ -239,8 +240,6 @@ public class Janela extends JFrame
 						figuras.add (new Linha(p1.getX(), p1.getY(), e.getX(), e.getY(), corAtual));
 						figuras.get(figuras.size()-1).torneSeVisivel(pnlDesenho.getGraphics());
 						statusBar1.setText("Mensagem:");    
-						
-						System.out.println("LINHA = "  + new Linha(p1.getX(), p1.getY(), e.getX(), e.getY()).toString());
 					}
 					else
 						if (esperaInicioRaioCirculo)
@@ -305,7 +304,7 @@ public class Janela extends JFrame
 		}
 	}
 
-	protected class abrirArquivo implements ActionListener
+	protected class AbrirArquivo implements ActionListener
 	{
 		public void actionPerformed (ActionEvent e)    
 		{
@@ -319,13 +318,9 @@ public class Janela extends JFrame
 
 				if(arquivo.exists() && !diretorio.arquivoVazio(arquivo)) {
 
-					String split[] = arquivo.toString().split("\\\\");
-
-					String nomeArquivo = split[split.length-1];
-
-					statusBar1.setText("Mensagem: " + nomeArquivo); //mostrar nome do diretorio
+					statusBar1.setText("Mensagem: " + arquivo.getName()); //mostrar nome do diretorio
 					linhasArquivo = diretorio.lerArquivo(arquivo);
-					carregarArquivo(linhasArquivo);
+					CarregarArquivo(linhasArquivo);
 				}
 
 				else {
@@ -339,7 +334,7 @@ public class Janela extends JFrame
 		}
 	}
 
-	protected void carregarArquivo (Vector <String> linhasArquivo) {
+	protected void CarregarArquivo (Vector <String> linhasArquivo) {
 
 		int invalido = 0;
 
@@ -457,7 +452,20 @@ public class Janela extends JFrame
 		}	
 	}
 
-	protected class selecionarCor implements ActionListener
+	
+	protected class SalvarArquivo implements ActionListener
+	{
+		public void actionPerformed (ActionEvent e)    
+		{
+			statusBar1.setText("Mensagem: Salvando arquivo...");
+			
+			new Salvar(figuras);
+				
+			statusBar1.setText("Mensagem: ");
+		}
+	}
+	
+	protected class SelecionarCor implements ActionListener
 	{
 		public void actionPerformed (ActionEvent e)    
 		{
