@@ -1,7 +1,5 @@
-//
 import java.io.*;
-import java.util.Vector;
-
+import java.util.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
@@ -11,18 +9,18 @@ public class Abrir
 	private Vector<String> linhasArquivo = new Vector<String>();
 
 	public Abrir() {
-
+		
 		JFileChooser jfc = new JFileChooser();
 
-		jfc.setDialogTitle("Selecione um arquivo");
+		jfc.setDialogTitle("Salvar como");
 
 		jfc.setAcceptAllFileFilterUsed(false);
 
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("PNT (*.pnt)", "pnt");
 		jfc.addChoosableFileFilter(filter);
 
-		int returnValue = jfc.showOpenDialog(null);
-		// int returnValue = jfc.showSaveDialog(null);
+		 int returnValue = jfc.showOpenDialog(null);
+		//int returnValue = jfc.showSaveDialog(null);
 
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			this.arquivo = jfc.getSelectedFile();
@@ -43,7 +41,7 @@ public class Abrir
 	}
 
 	public Vector <String> lerArquivo (File arquivo) {
-		
+
 		try {
 			BufferedReader leitor = new BufferedReader (new FileReader (this.arquivo));
 
@@ -55,7 +53,7 @@ public class Abrir
 		}
 		catch (Exception erro)
 		{System.out.println(erro);}
-	
+
 		return this.linhasArquivo;
 	}
 }
