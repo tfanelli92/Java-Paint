@@ -105,4 +105,27 @@ public class Ponto extends Figura
 
 		return true;
 	} 
+	
+    public Ponto (Ponto modelo) throws Exception {
+    	
+    	if(modelo == null) {
+    		throw new Exception ("Modelo vazio");
+    	}
+    	
+    	this.x = modelo.x;
+    	this.y = modelo.y;
+    }
+    
+    public Object clone() {
+    	
+    	Ponto ret = null;
+    	
+    	try {
+    		ret = new Ponto(this);
+    	}
+    	
+    	catch (Exception e){}
+    	
+    	return ret;
+    }
 }

@@ -133,5 +133,29 @@ public class Elipse extends Figura
 		}
 
 		return true;
-	}      
+	}    
+	
+    public Elipse (Elipse modelo) throws Exception {
+    	
+    	if(modelo == null) {
+    		throw new Exception ("Modelo vazio");
+    	}
+    	
+    	this.centro = modelo.centro;
+    	this.raio1 = modelo.raio1;
+    	this.raio2 = modelo.raio2;
+    }
+    
+    public Object clone() {
+    	
+    	Elipse ret = null;
+    	
+    	try {
+    		ret = new Elipse(this);
+    	}
+    	
+    	catch (Exception e){}
+    	
+    	return ret;
+    }
 }

@@ -114,4 +114,27 @@ public class Circulo extends Figura
 
 		return true;
 	}      
+	
+    public Circulo (Circulo modelo) throws Exception {
+    	
+    	if(modelo == null) {
+    		throw new Exception ("Modelo vazio");
+    	}
+    	
+    	this.centro = modelo.centro;
+    	this.raio = modelo.raio;
+    }
+    
+    public Object clone() {
+    	
+    	Circulo ret = null;
+    	
+    	try {
+    		ret = new Circulo(this);
+    	}
+    	
+    	catch (Exception e){}
+    	
+    	return ret;
+    }
 }
