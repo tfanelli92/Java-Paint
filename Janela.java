@@ -407,21 +407,19 @@ public class Janela extends JFrame
 			File arquivo = diretorio.getDiretorio();
 
 			if(arquivo != null) {
-
+				
 				if(arquivo.exists() && !diretorio.arquivoVazio(arquivo)) {
-
-					statusBar1.setText("Mensagem: " + arquivo.getName()); //mostrar nome do diretorio
+					
 					linhasArquivo = diretorio.lerArquivo(arquivo);
 					CarregarArquivo(linhasArquivo);
+					JOptionPane.showMessageDialog(null, "Arquivo ''" + arquivo.getName() + "'' carregado com sucesso", "Aviso",
+					JOptionPane.WARNING_MESSAGE);
 				}
 
 				else {
-					statusBar1.setText("Mensagem: arquivo nao encontrado ou vazio");
+					JOptionPane.showMessageDialog(null, "Arquivo ''" + arquivo.getName() + "'' nao existe ou esta vazio", "Erro",
+					JOptionPane.ERROR_MESSAGE);
 				}
-			}
-
-			else {
-				statusBar1.setText("Mensagem: ");
 			}
 		}
 	}
@@ -430,6 +428,9 @@ public class Janela extends JFrame
 
 		int invalido = 0;
 
+		figuras.clear();
+		pnlDesenho.getGraphics().clearRect(0, 0, pnlDesenho.getWidth(), pnlDesenho.getHeight());
+		
 		for(int x = 0; x < linhasArquivo.size(); x++) {
 
 			if(linhasArquivo.get(x) != null) {
