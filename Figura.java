@@ -58,4 +58,13 @@ public abstract class Figura
 		
 		return true;
 	}
+	
+    public Figura (Figura modelo) throws Exception {
+    	
+    	if(modelo == null) {
+    		throw new Exception ("Modelo vazio");
+    	}
+    	
+    	this.cor = modelo.cor;
+    }
 }

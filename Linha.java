@@ -117,4 +117,27 @@ public class Linha extends Figura
 
 		return true;
 	} 
+	
+    public Linha (Linha modelo) throws Exception {
+    	
+    	if(modelo == null) {
+    		throw new Exception ("Modelo vazio");
+    	}
+    	
+    	this.p1 = modelo.p1;
+    	this.p2 = modelo.p2;
+    }
+    
+    public Object clone() {
+    	
+    	Linha ret = null;
+    	
+    	try {
+    		ret = new Linha(this);
+    	}
+    	
+    	catch (Exception e){}
+    	
+    	return ret;
+    }
 }
