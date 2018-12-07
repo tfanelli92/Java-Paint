@@ -9,7 +9,7 @@ public class Abrir
 	private Vector<String> linhasArquivo = new Vector<String>();
 
 	public Abrir() {
-		
+
 		JFileChooser jfc = new JFileChooser();
 
 		jfc.setDialogTitle("Salvar como");
@@ -19,7 +19,7 @@ public class Abrir
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("PNT (*.pnt)", "pnt");
 		jfc.addChoosableFileFilter(filter);
 
-		 int returnValue = jfc.showOpenDialog(null);
+		int returnValue = jfc.showOpenDialog(null);
 		//int returnValue = jfc.showSaveDialog(null);
 
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -56,5 +56,52 @@ public class Abrir
 
 		return this.linhasArquivo;
 	}
-}
 
+	public boolean equals(Object obj) {
+
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		Abrir abrir = (Abrir) obj;
+		
+		if(abrir.arquivo != this.arquivo || abrir.linhasArquivo != this.linhasArquivo) {
+			return false;
+		}
+
+		if(abrir.linhasArquivo.size() != this.linhasArquivo.size()) {
+			return false;
+		}
+
+		for(int x = 0; x < this.linhasArquivo.size(); x++) {
+			if(abrir.linhasArquivo.get(x) != this.linhasArquivo.get(x))
+				return false;
+		}
+		
+		return true;
+	}
+	
+	public String toString() {
+		String split[] = this.arquivo.getName().split("\\\\");
+
+		return split[split.length-1];
+	}
+	
+	public int hashCode() {
+		
+		int primo = 31, ret = 1;
+		
+		ret = ret * primo + this.arquivo.hashCode();
+		
+		for(int x = 0; x < this.linhasArquivo.size(); x++) {
+			ret = ret * primo + this.linhasArquivo.hashCode();
+		}
+		
+		return ret;
+	}
+}

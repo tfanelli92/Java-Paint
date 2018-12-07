@@ -277,7 +277,7 @@ public class Janela extends JFrame
 									{
 										esperaInicioElipse      = true;
 										esperaFimElipse         = false;
-										
+
 										int r1     = Math.abs(p1.getX() - e.getX())/2;
 										int r2     = Math.abs(p1.getY() - e.getY())/2;
 
@@ -294,7 +294,7 @@ public class Janela extends JFrame
 		public void mouseClicked (MouseEvent e)
 		{
 			if(esperaPonto) {
-				
+
 				statusBar1.setText("Mensagem: clique para marcar o ponto");
 				esperaPonto      = true;
 				esperaInicioReta = false;
@@ -305,9 +305,9 @@ public class Janela extends JFrame
 				esperaFimElipse = false;
 				esperaIniciarApagar = false;
 			}
-			
+
 			else if(esperaInicioReta) {
-				
+
 				statusBar1.setText("Mensagem: clique para iniciar a reta");  
 				esperaPonto      = false;
 				esperaInicioReta = true;
@@ -318,9 +318,9 @@ public class Janela extends JFrame
 				esperaFimElipse = false;
 				esperaIniciarApagar = false;
 			}
-			
+
 			else if(esperaInicioRaioCirculo) {
-				
+
 				statusBar1.setText("Mensagem: clique o ponto (x) do centro do circulo"); 
 				esperaPonto      = false;
 				esperaInicioReta = false;
@@ -331,11 +331,11 @@ public class Janela extends JFrame
 				esperaFimElipse = false;
 				esperaIniciarApagar = false;
 			}
-			
+
 			else if (esperaInicioElipse) {
-				
+
 				statusBar1.setText("Mensagem: clique o ponto (x) do centro da elipse");
-				
+
 				esperaPonto      = false;
 				esperaInicioReta = false;
 				esperaFimReta    = false;
@@ -407,18 +407,18 @@ public class Janela extends JFrame
 			File arquivo = diretorio.getDiretorio();
 
 			if(arquivo != null) {
-				
+
 				if(arquivo.exists() && !diretorio.arquivoVazio(arquivo)) {
-					
+
 					linhasArquivo = diretorio.lerArquivo(arquivo);
 					CarregarArquivo(linhasArquivo);
-					JOptionPane.showMessageDialog(null, "Arquivo ''" + arquivo.getName() + "'' carregado com sucesso", "Aviso",
-					JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Arquivo ''" + arquivo.toString() + "'' carregado com sucesso", "Aviso",
+							JOptionPane.WARNING_MESSAGE);
 				}
 
 				else {
-					JOptionPane.showMessageDialog(null, "Arquivo ''" + arquivo.getName() + "'' nao existe ou esta vazio", "Erro",
-					JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Arquivo ''" + arquivo.toString() + "'' nao existe ou esta vazio", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}
@@ -430,7 +430,7 @@ public class Janela extends JFrame
 
 		figuras.clear();
 		pnlDesenho.getGraphics().clearRect(0, 0, pnlDesenho.getWidth(), pnlDesenho.getHeight());
-		
+
 		for(int x = 0; x < linhasArquivo.size(); x++) {
 
 			if(linhasArquivo.get(x) != null) {
@@ -662,5 +662,66 @@ public class Janela extends JFrame
 		{
 			System.exit(0);
 		}
+	}
+
+	public int hashCode() {
+
+		int primo = 31, ret = super.hashCode();
+
+		ret = ret * primo + new Long(this.serialVersionUID).hashCode();
+
+		ret = ret * primo + btnPonto.hashCode();
+
+		ret = ret * primo + btnLinha.hashCode();
+
+		ret = ret * primo + btnCirculo.hashCode();
+
+		ret = ret * primo + btnElipse.hashCode();
+
+		ret = ret * primo + btnCores.hashCode();
+
+		ret = ret * primo + btnAbrir.hashCode();
+
+		ret = ret * primo + btnSalvar.hashCode();
+
+		ret = ret * primo + btnApagar.hashCode();
+
+		ret = ret * primo + btnSair.hashCode();
+
+		ret = ret * primo + pnlDesenho.hashCode();
+
+		ret = ret * primo + statusBar1.hashCode();
+
+		ret = ret * primo + statusBar2.hashCode();
+
+		ret = ret * primo + new Boolean(esperaPonto).hashCode();
+
+		ret = ret * primo + new Boolean(esperaInicioReta).hashCode();
+
+		ret = ret * primo + new Boolean(esperaFimReta).hashCode();
+
+		ret = ret * primo + new Boolean(esperaInicioRaioCirculo).hashCode();
+
+		ret = ret * primo + new Boolean(esperaFimRaioCirculo).hashCode();
+
+		ret = ret * primo + new Boolean(esperaInicioElipse).hashCode();
+
+		ret = ret * primo + new Boolean(esperaFimElipse).hashCode();
+
+		ret = ret * primo + new Boolean(esperaIniciarApagar).hashCode();
+
+		ret = ret * primo + corAtual.hashCode();
+
+		ret = ret * primo + p1.hashCode();
+
+		ret = ret * primo + p2.hashCode();
+
+		ret = ret * primo + figuras.hashCode();
+
+		ret = ret * primo + pontoApagado.hashCode();
+
+		ret = ret * primo + linhasArquivo.hashCode();
+
+		return ret;
 	}
 }

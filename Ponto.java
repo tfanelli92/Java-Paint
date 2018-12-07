@@ -71,4 +71,38 @@ public class Ponto extends Figura
                ":" +
                this.getCor().getBlue();
     }
+    
+	public int hashCode() {
+
+		int primo = 31, ret = super.hashCode();
+
+		ret = ret * primo + new Integer (this.x).hashCode();
+		
+		ret = ret * primo + new Integer (this.y).hashCode();
+
+		return ret;
+	}
+
+	public boolean equals(Object obj) {
+
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		if (!super.equals(obj))
+			return false;
+
+		Ponto ponto = (Ponto) obj;
+
+		if(ponto.x != this.x || ponto.y != this.y) {
+			return false;
+		}
+
+		return true;
+	} 
 }
