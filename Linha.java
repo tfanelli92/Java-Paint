@@ -83,4 +83,38 @@ public class Linha extends Figura
                ":" +
                this.getCor().getBlue();
     }
+    
+	public int hashCode() {
+
+		int primo = 31, ret = super.hashCode();
+
+		ret = ret * primo + this.p1.hashCode();
+		
+		ret = ret * primo + this.p2.hashCode();
+
+		return ret;
+	}
+
+	public boolean equals(Object obj) {
+
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		if (!super.equals(obj))
+			return false;
+
+		Linha linha = (Linha) obj;
+
+		if(linha.p1 != this.p1 || linha.p2 != this.p2) {
+			return false;
+		}
+
+		return true;
+	} 
 }

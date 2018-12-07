@@ -25,7 +25,48 @@ public class Paleta extends JFrame {
 		this.frame.setSize(300, 200);
 	}
 	
+    public String toString()
+    {
+    	String cor = this.novaCor.toString();
+    	
+        return cor;
+    }
+	
 	public Color getNovaCor() {
 		return this.novaCor;
 	}
+	
+	public int hashCode() {
+
+		int primo = 31, ret = super.hashCode();
+
+		ret = ret * primo + this.novaCor.hashCode();
+		
+		ret = ret * primo + this.frame.hashCode();
+
+		return ret;
+	}
+
+	public boolean equals(Object obj) {
+
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		if (!super.equals(obj))
+			return false;
+
+		Paleta paleta = (Paleta) obj;
+
+		if(paleta.novaCor != this.novaCor || paleta.frame != this.frame) {
+			return false;
+		}
+
+		return true;
+	} 
 }

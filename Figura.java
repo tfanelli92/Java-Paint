@@ -29,4 +29,33 @@ public abstract class Figura
   //public abstract Object  clone          ();
     public abstract String  toString       ();
     public abstract void    torneSeVisivel (Graphics g);
+	
+    public int hashCode() {
+
+		int primo = 31, ret = 1;
+		
+		ret = ret * primo + this.cor.hashCode();
+		
+		return ret;
+	}
+
+	public boolean equals(Object obj) {
+
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		Figura figura = (Figura) obj;
+		
+		if(figura.cor != this.cor) {
+			return false;
+		}
+		
+		return true;
+	}
 }

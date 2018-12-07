@@ -98,4 +98,33 @@ public class Salvar {
 			System.out.println("Erro ao gravar = " + erro);
 		}
 	}
+	
+	public int hashCode() {
+
+		int primo = 31, ret = 1;
+
+		ret = ret * primo + this.arquivo.hashCode();
+
+		return ret;
+	}
+
+	public boolean equals(Object obj) {
+
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		Salvar salvar = (Salvar) obj;
+
+		if(salvar.arquivo != this.arquivo) {
+			return false;
+		}
+
+		return true;
+	} 
 }

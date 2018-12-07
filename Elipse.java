@@ -3,99 +3,135 @@ import java.util.*;
 
 public class Elipse extends Figura
 {
-    protected Ponto centro;
+	protected Ponto centro;
 
-    protected int raio1, raio2;
-	
-    public Elipse (int x, int y, int r1, int r2)
-    {
-        this (x, y, r1, r2, Color.BLACK);
-    }
-	
-    public Elipse (int x, int y, int r1, int r2, Color cor)
-    {
-        super (cor);
+	protected int raio1, raio2;
 
-        this.centro = new Ponto (x,y);
+	public Elipse (int x, int y, int r1, int r2)
+	{
+		this (x, y, r1, r2, Color.BLACK);
+	}
 
-        this.raio1  = r1;
-        this.raio2  = r2;
-    }
+	public Elipse (int x, int y, int r1, int r2, Color cor)
+	{
+		super (cor);
 
-    public Elipse (String s)
-    {
-        StringTokenizer quebrador = new StringTokenizer(s,":");
+		this.centro = new Ponto (x,y);
 
-        quebrador.nextToken();
+		this.raio1  = r1;
+		this.raio2  = r2;
+	}
 
-        int   x   = Integer.parseInt(quebrador.nextToken());
-        int   y   = Integer.parseInt(quebrador.nextToken());
+	public Elipse (String s)
+	{
+		StringTokenizer quebrador = new StringTokenizer(s,":");
 
-        int   r1  = Integer.parseInt(quebrador.nextToken());
-        int   r2  = Integer.parseInt(quebrador.nextToken());
+		quebrador.nextToken();
 
-        Color cor = new Color (Integer.parseInt(quebrador.nextToken()),  // R
-                               Integer.parseInt(quebrador.nextToken()),  // G
-                               Integer.parseInt(quebrador.nextToken())); // B
+		int   x   = Integer.parseInt(quebrador.nextToken());
+		int   y   = Integer.parseInt(quebrador.nextToken());
 
-        this.centro = new Ponto (x,y,cor);
-        this.raio1  = r1;
-        this.raio2  = r2;
-        this.cor    = cor;
-    }
+		int   r1  = Integer.parseInt(quebrador.nextToken());
+		int   r2  = Integer.parseInt(quebrador.nextToken());
 
-    public void setCentro (int x, int y)
-    {
-        this.centro = new Ponto (x,y,this.getCor());
-    }
+		Color cor = new Color (Integer.parseInt(quebrador.nextToken()),  // R
+				Integer.parseInt(quebrador.nextToken()),  // G
+				Integer.parseInt(quebrador.nextToken())); // B
 
-    public void setRaio1 (int r1)
-    {
-        this.raio1 = r1;
-    }
+		this.centro = new Ponto (x,y,cor);
+		this.raio1  = r1;
+		this.raio2  = r2;
+		this.cor    = cor;
+	}
 
-    public void setRaio2 (int r2)
-    {
-        this.raio2 = r2;
-    }
+	public void setCentro (int x, int y)
+	{
+		this.centro = new Ponto (x,y,this.getCor());
+	}
 
-    public Ponto getCentro ()
-    {
-        return this.centro;
-    }
+	public void setRaio1 (int r1)
+	{
+		this.raio1 = r1;
+	}
 
-    public int setRaio1 ()
-    {
-        return this.raio1;
-    }
+	public void setRaio2 (int r2)
+	{
+		this.raio2 = r2;
+	}
 
-    public int setRaio2 ()
-    {
-        return this.raio2;
-    }
+	public Ponto getCentro ()
+	{
+		return this.centro;
+	}
 
-    public void torneSeVisivel (Graphics g)
-    {
-        g.setColor (this.cor);
-        g.drawOval (this.centro.getX()-raio1, this.centro.getY()-raio2, 2*raio1, 2*raio2);
-			
-    }
+	public int setRaio1 ()
+	{
+		return this.raio1;
+	}
 
-    public String toString()
-    {
-        return "e:" +
-               this.centro.getX() +
-               ":" +
-               this.centro.getY() +
-               ":" +
-               this.raio1 +
-               ":" +
-               this.raio2 +
-               ":" +
-               this.getCor().getRed() +
-               ":" +
-               this.getCor().getGreen() +
-               ":" +
-               this.getCor().getBlue();
-    }
+	public int setRaio2 ()
+	{
+		return this.raio2;
+	}
+
+	public void torneSeVisivel (Graphics g)
+	{
+		g.setColor (this.cor);
+		g.drawOval (this.centro.getX()-raio1, this.centro.getY()-raio2, 2*raio1, 2*raio2);
+
+	}
+
+	public String toString()
+	{
+		return "e:" +
+				this.centro.getX() +
+				":" +
+				this.centro.getY() +
+				":" +
+				this.raio1 +
+				":" +
+				this.raio2 +
+				":" +
+				this.getCor().getRed() +
+				":" +
+				this.getCor().getGreen() +
+				":" +
+				this.getCor().getBlue();
+	}
+
+	public int hashCode() {
+
+		int primo = 31, ret = super.hashCode();
+
+		ret = ret * primo + this.centro.hashCode();
+
+		ret = ret * primo + new Integer(this.raio1);
+		
+		ret = ret * primo + new Integer(this.raio2);
+
+		return ret;
+	}
+
+	public boolean equals(Object obj) {
+
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		if (!super.equals(obj))
+			return false;
+
+		Elipse elipse = (Elipse) obj;
+
+		if(elipse.centro != this.centro || elipse.raio1 != this.raio1 || elipse.raio2 != this.raio2) {
+			return false;
+		}
+
+		return true;
+	}      
 }
